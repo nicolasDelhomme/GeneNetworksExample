@@ -47,3 +47,6 @@ data/
 reference
 reference/
 
+*.graphml
+*.tsv
+*.sf
