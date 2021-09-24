@@ -31,9 +31,17 @@ files <- untar(here("tmp/GSE159151_RAW.tar"), exdir = here("tmp"))
 
 files <- dir(here("tmp"), pattern = "*.txt.gz$", full.names = TRUE)
 
+#' For R version 4.1.1, readr 2.0.1
 counts <- purrr::reduce(lapply(files, function(f){
   read_tsv(f,show_col_types = FALSE) %>% arrange(desc(2)) %>% 
     filter(!duplicated(`Gene symbol`))}),full_join)
+
+#' For R version 4.0.5, readr 1.4.0
+#' ```{r older, eval=FALSE}
+#' counts <- purrr::reduce(lapply(files, function(f){
+#'   read_tsv(f,col_types = NULL) %>% arrange(desc(2)) %>% 
+#'    filter(!duplicated(`Gene symbol`))}),full_join)
+#' ```
 
 #' Second dataset: 
 download.file(
